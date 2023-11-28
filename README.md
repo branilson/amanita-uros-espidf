@@ -5,6 +5,8 @@
 
 This firmware eas tested with ESP-IDF v5.1.2 running on an ESP32 WROOM board. It might work with other ESP32 boards too.
 
+The micro-ROS component for ESP-IDF is available on https://github.com/micro-ROS/micro_ros_espidf_component/tree/humble
+
 ## Dependencies
 
 This component needs `colcon` and other Python 3 packages inside the IDF virtual environment in order to build micro-ROS packages:
@@ -23,19 +25,22 @@ This package support the usage of micro-ROS on top of two different middlewares:
 In order to select it, use `idf.py menuconfig` and go to `micro-ROS Settings > micro-ROS middleware`
 ## Usage
 
-You can clone this repo and open the generated folder in VSCode with DevContainer Plugin installed. Build the container and reopen VSCode in remote mode. All the ESP-IDF commands work on the Docker container terminal.
+You can clone this repo and open the generated folder in VSCode with DevContainer plugin installed. Build the container and reopen VSCode in remote mode. All the ESP-IDF commands work on the Docker container terminal.
 
 ## Example
 
-In order to test a cmint32_publisher example:
+In order to test the Amanita Robot Firmware, connect the board in a USB port and run the commands below:
 
-# Set target board [esp32|esp32s2|esp32s3|esp32c3]
 ```bash
+# Set target board [esp32|esp32s2|esp32s3|esp32c3]
 idf.py set-target esp32
-idf.py menuconfig
 # Set your micro-ROS configuration and WiFi credentials under micro-ROS Settings
+idf.py menuconfig
+#build the firmware
 idf.py build
+#flash the microcontroller
 idf.py flash
+#Serial monitoring
 idf.py monitor
 ```
 
@@ -45,7 +50,7 @@ To clean and rebuild all the micro-ROS library:
 idf.py clean-microros
 ```
 
-Is possible to use a micro-ROS Agent just with this docker command:
+It's possible to use a micro-ROS Agent just with this docker command:
 
 ```bash
 # UDPv4 micro-ROS Agent
