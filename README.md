@@ -16,9 +16,13 @@ This component needs `colcon` and other Python 3 packages inside the IDF virtual
 pip3 install catkin_pkg lark-parser empy colcon-common-extensions
 ```
 
-## Usage
+## Clone repo and submodules
 
 You can clone this repo and open the generated folder in VSCode with DevContainer plugin installed. Build the container and reopen VSCode in remote mode. All the ESP-IDF commands work on the Docker container terminal.
+
+```bash
+git clone --recurse-submodules git@github.com:branilson/amanita-uros-espidf.git
+```
 
 ## How-to
 
