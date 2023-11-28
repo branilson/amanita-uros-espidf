@@ -5,11 +5,11 @@ FROM espressif/idf:v5.1.2
 ENV DEBIAN_FRONTEND noninteractive
 RUN echo "Set disable_coredump false" >> /etc/sudo.conf
 RUN apt update -q && \
-    apt install -yq sudo lsb-release gosu nano && \
+    apt install -yq sudo lsb-release gosu nano locales locales-all && \
     rm -rf /var/lib/apt/lists/*
 
 
-ARG TZ_ARG=UTC
+ARG TZ_ARG="America/Bahia"
 ENV TZ=$TZ_ARG
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 

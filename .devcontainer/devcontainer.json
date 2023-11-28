@@ -2,5 +2,11 @@
     "build": {
         // Path is relative to the devcontainer.json file.
         "dockerfile": "Dockerfile"
-	}
+    },
+    "runArgs": [
+        "--device-cgroup-rule=a 5:* r"
+    ],
+    "mounts": [
+        "type=bind,source=/dev,target=/dev"
+    ]
 }

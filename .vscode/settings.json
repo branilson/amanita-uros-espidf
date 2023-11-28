@@ -1,3 +1,12 @@
 {
-    "idf.adapterTargetName": "esp32"
+    "idf.adapterTargetName": "esp32",
+    "files.associations": {
+        "int32.h": "c",
+        "rmw_microros.h": "c",
+        "executor.h": "c",
+        "rclc.h": "c",
+        "twist.h": "c",
+        "twist__functions.h": "c",
+        "twist__struct.h": "c"
+    }
 }

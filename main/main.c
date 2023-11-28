@@ -11,6 +11,7 @@
 #include <rcl/rcl.h>
 #include <rcl/error_handling.h>
 #include <std_msgs/msg/int32.h>
+#include <geometry_msgs/msg/twist.h>
 #include <rclc/rclc.h>
 #include <rclc/executor.h>
 
@@ -22,9 +23,9 @@
 #define RCSOFTCHECK(fn) { rcl_ret_t temp_rc = fn; if((temp_rc != RCL_RET_OK)){printf("Failed status on line %d: %d. Continuing.\n",__LINE__,(int)temp_rc);}}
 
 rcl_publisher_t publisher;
-rcl_subscription_t subscriber;
+rcl_subscription_t twist_subscriber;
 std_msgs__msg__Int32 send_msg;
-std_msgs__msg__Int32 recv_msg;
+geometry_msgs__msg__Twist twist_msg;
 
 void timer_callback(rcl_timer_t * timer, int64_t last_call_time)
 {
@@ -36,10 +37,12 @@ void timer_callback(rcl_timer_t * timer, int64_t last_call_time)
 	}
 }
 
-void subscription_callback(const void * msgin)
+void twist_subscription_callback(const void * msgin)
 {
-	const std_msgs__msg__Int32 * msg = (const std_msgs__msg__Int32 *)msgin;
-	printf("Received: %d\n",  (int)  msg->data);
+	const geometry_msgs__msg__Twist * msg = (const geometry_msgs__msg__Twist *)msgin;
+	printf("Twist message received: Angular=(%f,%f,%f) | Linear=(%f,%f,%f\n",
+												 msg->angular.x, msg->angular.y, msg->angular.z,
+												 msg->linear.x, msg->linear.y, msg->linear.z);
 }
 
 void micro_ros_task(void * arg)
@@ -63,7 +66,7 @@ void micro_ros_task(void * arg)
 
 	// Create node.
 	rcl_node_t node = rcl_get_zero_initialized_node();
-	RCCHECK(rclc_node_init_default(&node, "int32_publisher_subscriber_rclc", "", &support));
+	RCCHECK(rclc_node_init_default(&node, "amanita_uros_espidf_rclc", "", &support));
 
 	// Create publisher.
 	RCCHECK(rclc_publisher_init_default(
@@ -73,11 +76,11 @@ void micro_ros_task(void * arg)
 		"int32_publisher"));
 
 	// Create subscriber.
-	RCCHECK(rclc_subscription_init_default(
-		&subscriber,
+	RCCHECK(rclc_subscription_init_best_effort(
+		&twist_subscriber,
 		&node,
-		ROSIDL_GET_MSG_TYPE_SUPPORT(std_msgs, msg, Int32),
-		"int32_subscriber"));
+		ROSIDL_GET_MSG_TYPE_SUPPORT(geometry_msgs, msg, Twist),
+		"/amanita/cmd_vel"));
 
 	// Create timer.
 	rcl_timer_t timer = rcl_get_zero_initialized_timer();
@@ -96,7 +99,7 @@ void micro_ros_task(void * arg)
 
 	// Add timer and subscriber to executor.
 	RCCHECK(rclc_executor_add_timer(&executor, &timer));
-	RCCHECK(rclc_executor_add_subscription(&executor, &subscriber, &recv_msg, &subscription_callback, ON_NEW_DATA));
+	RCCHECK(rclc_executor_add_subscription(&executor, &twist_subscriber, &twist_msg, &twist_subscription_callback, ON_NEW_DATA));
 
 	// Spin forever.
 	send_msg.data = 0;
@@ -106,7 +109,7 @@ void micro_ros_task(void * arg)
 	}
 
 	// Free resources.
-	RCCHECK(rcl_subscription_fini(&subscriber, &node));
+	RCCHECK(rcl_subscription_fini(&twist_subscriber, &node));
 	RCCHECK(rcl_publisher_fini(&publisher, &node));
 	RCCHECK(rcl_node_fini(&node));
 
