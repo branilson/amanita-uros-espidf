@@ -13,3 +13,194 @@ menu "micro-ROS example-app settings"
         Priority of micro-ros task higher value means higher priority
         
 endmenu
+
+menu "Amanita Robot Hardware Configuration"
+
+    config MOTOR_LEFT_MCPWM_A
+        int "Left Motor PWM A GPIO number"
+        range 1 33
+        default 27
+        help 
+            GPIO number (IOxx) to run PWM to the Channel A of the left motor H-Bridge.
+            Some GPIOs are used for other purposes (flash connections, etc.) and cannot be used to blink.
+            GPIO 0 is used to configure boot and GPIOs 34-39 are input-only so cannot be used as outputs.
+    
+    config MOTOR_LEFT_MCPWM_B
+        int "Left Motor PWM B GPIO number"
+        range 1 33
+        default 26
+        help 
+            GPIO number (IOxx) to run PWM to the Channel B of the left motor H-Bridge.
+            Some GPIOs are used for other purposes (flash connections, etc.) and cannot be used to blink.
+            GPIO 0 is used to configure boot and GPIOs 34-39 are input-only so cannot be used as outputs.
+
+    config MOTOR_LEFT_ENABLE
+        int "Left Motor Enable GPIO number"
+        range 1 33
+        default 25
+        help 
+            GPIO number (IOxx) to Enable or disable the left motor.
+            Some GPIOs are used for other purposes (flash connections, etc.) and cannot be used to blink.
+            GPIO 0 is used to configure boot and GPIOs 34-39 are input-only so cannot be used as outputs.
+    
+    config ENCODER_LEFT_CHANNEL_A
+        int "Left Encoder Channel A GPIO number"
+        range 3 39
+        default 32
+        help 
+            GPIO number (IOxx) to serve left encoder Channel A interrupt pin.
+            Some GPIOs are used for other purposes (flash connections, etc.) and cannot be used as input.
+            GPIOs 0-2 are used to configure boot.
+    
+    config ENCODER_LEFT_CHANNEL_B
+        int "Left Encoder Channel B GPIO number"
+        range 3 39
+        default 33
+        help 
+            GPIO number (IOxx) to serve left encoder Channel B interrupt pin.
+            Some GPIOs are used for other purposes (flash connections, etc.) and cannot be used as input.
+            GPIOs 0-2 are used to configure boot.
+
+    config MOTOR_RIGHT_MCPWM_A
+        int "Right Motor PWM A GPIO number"
+        range 1 33
+        default 23
+        help 
+            GPIO number (IOxx) to run PWM to the Channel A of the right motor H-Bridge.
+            Some GPIOs are used for other purposes (flash connections, etc.) and cannot be used as outputs.
+            GPIO 0 is used to configure boot and GPIOs 34-39 are input-only so cannot be used as outputs.
+    
+    config MOTOR_RIGHT_MCPWM_B
+        int "Right Motor PWM B GPIO number"
+        range 1 33
+        default 19
+        help 
+            GPIO number (IOxx) to run PWM to the Channel B of the right motor H-Bridge.
+            Some GPIOs are used for other purposes (flash connections, etc.) and cannot be used as outputs.
+            GPIO 0 is used to configure boot and GPIOs 35-39 are input-only so cannot be used as outputs.
+
+    config MOTOR_RIGHT_ENABLE
+        int "Right Motor Enable GPIO number"
+        range 1 33
+        default 18
+        help 
+            GPIO number (IOxx) to enable or disable the right motor.
+            Some GPIOs are used for other purposes (flash connections, etc.) and cannot be used as outputs.
+            GPIO 0 is used to configure boot and GPIOs 34-39 are input-only so cannot be used as outputs.
+    
+    config ENCODER_RIGHT_CHANNEL_A
+        int "Right Encoder Channel A GPIO number"
+        range 3 39
+        default 35
+        help 
+            GPIO number (IOxx) to serve right encoder Channel A interrupt pin.
+            Some GPIOs are used for other purposes (flash connections, etc.) and cannot be used as input.
+            GPIOs 0-2 are used to configure boot.
+    
+    config ENCODER_RIGHT_CHANNEL_B
+        int "Right Encoder Channel B GPIO number"
+        range 3 39
+        default 34
+        help 
+            GPIO number (IOxx) to serve right encoder Channel B interrupt pin.
+            Some GPIOs are used for other purposes (flash connections, etc.) and cannot be used as input.
+            GPIOs 0-2 are used to configure boot.
+
+    config LED_ONBOARD
+        int "Onboard LED GPIO number"
+        range 1 33
+        default 5
+        help 
+            GPIO number (IOxx) to serve right encoder Channel B interrupt pin.
+            Some GPIOs are used for other purposes (flash connections, etc.) and cannot be used to blink.
+            GPIO 0 is used to configure boot and GPIOs 34-39 are input-only so cannot be used as outputs.
+
+endmenu
+
+menu "Amanita Robot Motor Control Configuration"
+
+    config MOTOR_RIGHT_P_GAIN
+        int "Right Motot P Gain"
+        range 0 1000000
+        default 600
+        help
+            Integer vaule for the Right Motor PID controller P Gain x 1000.
+
+    config MOTOR_RIGHT_I_GAIN
+        int "Right Motot I Gain"
+        range 0 1000000
+        default 400
+        help
+            Integer vaule for the Right Motor PID controller I Gain x 1000.
+
+    config MOTOR_RIGHT_D_GAIN
+        int "Right Motot D Gain"
+        range 0 1000000
+        default 200
+        help
+            Integer vaule for the Right Motor PID controller D Gain x 1000.
+
+    config MOTOR_LEFT_P_GAIN
+        int "Left Motot P Gain"
+        range 0 1000000
+        default 600
+        help
+            Integer vaule for the Left Motor PID controller P Gain x 1000.
+
+    config MOTOR_LEFT_I_GAIN
+        int "Left Motot I Gain"
+        range 0 1000000
+        default 400
+        help
+            Integer vaule for the Left Motor PID controller I Gain x 1000.
+
+    config MOTOR_LEFT_D_GAIN
+        int "Left Motot D Gain"
+        range 0 1000000
+        default 200
+        help
+            Integer vaule for the Left Motor PID controller D Gain x 1000.
+
+    config MOTOR_LEFT_INVERTED
+        bool "Left Motot Inverted"
+        default y
+        help
+            Invert left motor polarity
+
+    config MOTOR_RIGHT_INVERTED
+        bool "Right Motot Inverted"
+        default n
+        help
+            Invert right motor polarity
+
+    config WHEEL_RADIUS
+        int "Wheel radius in micrometers"
+        default 25800
+        help 
+            Integer value in micrometers for the wheel diameter measurement.
+
+    config WHEELS_DISTANCE
+        int "Center to center wheels distance in micrometers"
+        default 134500
+        help 
+            Integer value in micrometers for the wheels distance.
+
+    config WHEEL_MAX_RPM
+        int "Wheel Motor Max rpm"
+        default 400
+        help 
+            Integer value in revolutions per minute for maximum wheel speed.
+
+    config ENCODER_CPR
+        int "Encoder counts/revolution"
+        default 980
+        help 
+            Integer value in counts per revolution of the wheel encoder.
+
+    config WHEEL_RPM_DEADBAND
+        int "Wheel Motor Minimum controlable steady rpm"
+        default 18
+        help 
+            Integer value in revolutions per minute for the minimum wheel controled speed.
+
+endmenu
