@@ -63,7 +63,7 @@ It's possible to use a micro-ROS Agent just with this docker command:
 
 ### UDPv4 micro-ROS Agent
 ```bash
-docker run -it --rm --net=host microros/micro-ros-agent:iron udp4 --port 8888 -v6
+docker run -it --rm --net=host microros/micro-ros-agent:humble udp4 --port 8888 -v6
 ```
 
 ### Send a Twist message using ROS2
