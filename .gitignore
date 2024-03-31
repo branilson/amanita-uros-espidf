@@ -1,3 +1,90 @@
+sdkconfig*
+!sdkconfig.defaults
+.config
+*.o
+*.pyc
+*.old
+
+# gtags
+GTAGS
+GRTAGS
+GPATH
+
+# emacs
+.dir-locals.el
+
+# emacs temp file suffixes
+*~
+.#*
+\#*#
+
+# eclipse setting
+.settings
+
+# MacOS directory files
+.DS_Store
+
+# cache dir
+.cache/
+
+# Doc build artifacts
+docs/_build/
+docs/doxygen_sqlite3.db
+
+# Downloaded font files
+docs/_static/DejaVuSans.ttf
+docs/_static/NotoSansSC-Regular.otf
+
+# Components Unit Test Apps files
+components/**/build/
+components/**/build_*_*/
+components/**/sdkconfig
+components/**/sdkconfig.old
+
+TEST_LOGS/
+build_summary_*.xml
+
+# gcov coverage reports
+*.gcda
+*.gcno
+coverage.info
+coverage_report/
+
+test_multi_heap_host
+
+# VS Code Settings
+.vscode/
+
+# VIM files
+*.swp
+*.swo
+
+# Sublime Text files
+*.sublime-project
+*.sublime-workspace
+
+# Clion IDE CMake build & config
+.idea/
+cmake-build-*/
+
+# Results for the checking of the Python coding style and static analysis
+.mypy_cache
+flake8_output.txt
+
+# ESP-IDF default build directory name
 build
-sdkconfig
-sdkconfig.old
+
+# lock files for examples and components
+dependencies.lock
+
+# managed_components for examples
+managed_components
+
+# pytest log
+pytest_embedded_log/
+list_job*.txt
+size_info*.txt
+XUNIT_RESULT*.xml
+
+# clang config (for LSP)
+.clangd
